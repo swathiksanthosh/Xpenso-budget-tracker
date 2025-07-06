@@ -62,14 +62,16 @@ exports.getDashboardData = async (req, res) => {
     const lastTransactions = [
       ...incomeTxns.map((txn) => ({
         _id: txn._id,
-        category: txn.category,
+        source: txn.source,           // ✅ correct field for income
+        icon: txn.icon,
         amount: txn.amount,
         date: txn.date,
         type: "income",
       })),
       ...expenseTxns.map((txn) => ({
         _id: txn._id,
-        category: txn.category,
+        category: txn.category,      // ✅ correct field for expense
+        icon: txn.icon,
         amount: txn.amount,
         date: txn.date,
         type: "expense",
@@ -80,7 +82,7 @@ exports.getDashboardData = async (req, res) => {
     res.json({
       totalBalance: totalIncome - totalExpense,
       totalIncome,
-      totalExpense, // ✅ correct property name
+      totalExpense,
       last30DaysExpenses: {
         total: expensesLast30Days,
         transactions: last30DaysExpenseTransactions,
@@ -96,3 +98,4 @@ exports.getDashboardData = async (req, res) => {
     res.status(500).json({ message: "Server Error", error });
   }
 };
+
