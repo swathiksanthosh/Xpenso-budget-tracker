@@ -21,7 +21,11 @@ const RecentTransaction = ({transactions, onSeeMore}) => {
                         className="bg-gradient-to-r from-[#d1d0f9] via-[#e2e2f4] to-[#eee] p-1 rounded-lg shadow-sm"
                     >
                         <TransactionInfoCard
-                            title={item.type == 'expense' ? item.category : item.source}
+                            title={
+                                item.type === 'expense'
+                                ? item.category
+                                : item.source || item.category || 'Income'
+                            }
                             icon={item.icon}
                             date={moment(item.date).format("Do MMM YYYY")}
                             amount={item.amount}
